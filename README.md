@@ -1,27 +1,35 @@
-🧩 Wafer Defect Multi-Task Classification (VLSI)
+# Wafer Defect Multi-Task Classification (VLSI)
 
-This repository presents a multi-task deep learning solution for wafer defect analysis in VLSI manufacturing.
+This repository presents a **multi-task deep learning solution** for wafer defect analysis in **VLSI manufacturing**.
 
-The trained model is provided in ONNX format for efficient and framework-independent inference.
+The trained model is provided in **ONNX format** for efficient, framework-independent inference.
 
-Due to GitHub file size limitations, the dataset is hosted externally, while the ONNX model is included directly in this repository.
+Due to GitHub file size limitations, the **dataset is hosted externally**, while the **ONNX model is included directly in this repository**.
 
-📁 Repository Structure
+---
+
+## 📁 Repository Contents
+
+```text
 Wafer-Defect-MultiTask/
 ├── README.md
 └── wafer_defect_multitask_model.onnx
+```
 
-📊 Dataset
+---
 
-Due to GitHub file size limitations, the dataset is hosted externally.
+## 📊 Dataset
 
-Dataset ZIP (Google Drive):
-👉 https://drive.google.com/file/d/1RySfy0fkOwzzTEh1w4gowlEppPftanUG/view?usp=drive_link
+The dataset is hosted externally due to GitHub file size limitations.
 
-Dataset Structure
+- **Dataset ZIP (Google Drive):**  
+  https://drive.google.com/file/d/1RySfy0fkOwzzTEh1w4gowlEppPftanUG/view
 
-After downloading and extracting dataset.zip, the directory structure will be:
+### Dataset Structure
 
+After downloading and extracting `dataset.zip`, the dataset directory structure is:
+
+```text
 dataset/
 ├── clean/
 │   ├── clean_si/
@@ -41,48 +49,48 @@ dataset/
     ├── pinhole_ge/
     ├── vias_si/
     └── vias_ge/
+```
 
-🧠 Model (ONNX)
+---
 
-Model Format: ONNX
+## 🧠 Model (ONNX)
 
-Input Shape: 224 × 224 × 3 (RGB image)
+- **Model Format:** ONNX  
+- **Input Shape:** `224 × 224 × 3` (RGB image)  
+- **Model Type:** Multi-task Convolutional Neural Network  
 
-Model Type: Multi-task Convolutional Neural Network
+### Model Outputs
 
-Model Outputs
+The ONNX model produces **three outputs**:
 
-The ONNX model produces three outputs:
+1. Clean vs Defected classification (2 classes)  
+2. Material classification – Silicon / Germanium (2 classes)  
+3. Defect type classification (7 classes)
 
-Clean vs Defected classification (2 classes)
+### ONNX Model File
 
-Material classification – Silicon / Germanium (2 classes)
-
-Defect type classification (7 classes)
-
-ONNX Model File
+```text
 wafer_defect_multitask_model.onnx
+```
 
-▶️ ONNX Inference (Optional)
+---
 
-Example showing how to run inference using ONNX Runtime:
+## ▶️ ONNX Inference (Optional)
 
+Example inference using **ONNX Runtime**:
+
+```python
 import onnxruntime as ort
 import numpy as np
 
-# Load ONNX model
 session = ort.InferenceSession("wafer_defect_multitask_model.onnx")
-
-# Get model input name
 input_name = session.get_inputs()[0].name
 
-# Dummy input (replace with actual preprocessed wafer image)
 dummy_input = np.random.rand(1, 224, 224, 3).astype(np.float32)
-
-# Run inference
 outputs = session.run(None, {input_name: dummy_input})
 
-print("Model outputs:", outputs)
+print(outputs)
+```
 
+---
 
-This demonstrates how the ONNX model can be used for fast inference, edge deployment, and hardware-aware VLSI applications.
